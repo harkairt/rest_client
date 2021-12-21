@@ -84,23 +84,3 @@ Future<Either<E, T>> retryWhenLeft<E, T>(
   Duration delayIncrement = const Duration(milliseconds: 500),
 }) async =>
     retryWhen(eitherFn, predicate: (response) => response.isLeft());
-
-
-// extension on Either<ApiError, Object?> {
-//   void reportError({required String path, required String method}) {
-//     fold(
-//       (apiError) {
-//         Sentry.captureException(
-//           apiError.exception ?? apiError.error,
-//           stackTrace: apiError.error?.stackTrace ?? StackTrace.current,
-//           withScope: (scope) {
-//             scope.setContexts('api_path', path);
-//             scope.setContexts('api_method', method);
-//             scope.setContexts('api_error', apiError.message);
-//           },
-//         );
-//       },
-//       (_) {},
-//     );
-//   }
-// }
