@@ -49,7 +49,7 @@ class RestClient {
   final Dio _dio;
   Function()? on401;
   RestClientLoggingLevel loggingLevel;
-  Function({required String path, required String method, required ApiError error})? crashReporter;
+  Function(String path, String method, ApiError error)? crashReporter;
   Function(String)? logger;
 
   Future<Either<ApiError<E>, V>> get<VR, V, ER, E>(
@@ -77,7 +77,7 @@ class RestClient {
     response.fold(
       (error) {
         if (crashReporting) {
-          crashReporter?.call(path: path, method: 'GET', error: error);
+          crashReporter?.call(path, 'GET', error);
         }
       },
       (_) {},
@@ -111,7 +111,7 @@ class RestClient {
     response.fold(
       (error) {
         if (crashReporting) {
-          crashReporter?.call(path: path, method: 'POST', error: error);
+          crashReporter?.call(path, 'POST', error);
         }
       },
       (_) {},
@@ -144,7 +144,7 @@ class RestClient {
     response.fold(
       (error) {
         if (crashReporting) {
-          crashReporter?.call(path: path, method: 'PUT', error: error);
+          crashReporter?.call(path, 'PUT', error);
         }
       },
       (_) {},
@@ -175,7 +175,7 @@ class RestClient {
     response.fold(
       (error) {
         if (crashReporting) {
-          crashReporter?.call(path: path, method: 'DELETE', error: error);
+          crashReporter?.call(path, 'DELETE', error);
         }
       },
       (_) {},
